@@ -1,11 +1,24 @@
+#!/bin/bash
 
-echo hey
-pwd
-exit 1
+cmd="git diff -U0 --no-color | clang-format-diff -p1"
+# cmd="git clang-format --diff"
 
-for FILE in $(git diff --cached --name-only)
-do
-        clang-format -i $FILE
-done
+# Execute the format command
+diff=$(eval "$cmd")
+if [[ $? -ne 0 ]]
+then
+    echo "Command failed to execute."
+    exit 1
+fi
 
-clang-format --dry-run --Werror foo.cpp
+# Print the outcome
+if [[ -z "$diff" ]]
+then
+    echo "Everything is clean"
+    exit 0
+else
+    echo "Commit aborted due to code format inconsistencies."
+    echo ""
+    echo "$diff"
+    exit 1
+fi
