@@ -16,6 +16,7 @@ DEPFILES := $(SRCS:%.c=$(OBJDIR)/%.d)
 
 # criterion vars
 CRITERION := 0
+TEST_RUN_EXEC := run-tests
 CRITERION_SRC := $(shell find $(TEST_DIR) -name *.c) $(filter-out $(shell find $(SRC_DIR) -name *main.c),$(SRCS))
 CRITERION_OBJ := $(addprefix $(OBJDIR)/,$(CRITERION_SRC:.c=.o))
 CRITERION_DEPS := $(CRITERION_SRC:%.c=$(OBJDIR)/%.d)
@@ -45,9 +46,14 @@ run: asan
 	@./$(TARGET)
 
 test: CFLAGS += -g3 -DDEBUG -fsanitize=address -fsanitize=leak
-test: $(CRITERION_OBJ)
-	@$(CC) $(CFLAGS) $(CRITERION_OBJ) -o run-tests $(LIBS) -lcriterion
-	@./run-tests
+test: $(TEST_RUN_EXEC)
+
+test-run: test
+	@./$(TEST_RUN_EXEC)
+	
+$(TEST_RUN_EXEC): $(CRITERION_OBJ)
+	$(CC) $(CFLAGS) $(CRITERION_OBJ) -o run-tests $(LIBS) -lcriterion
+
 
 $(TARGET): $(OBJS)
 	$(COMPILE.o) $(OUTPUT_OPTION) $^ $(LIBS)

@@ -1,7 +1,7 @@
 # C-Project template
 A template for any C project
 
-## Feature
+## Features
 - [X] Folder structure
 - [X] Makefile
 - [X] Criterion unit testing ready
