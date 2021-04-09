@@ -1,0 +1,11 @@
+
+echo hey
+pwd
+exit 1
+
+for FILE in $(git diff --cached --name-only)
+do
+        clang-format -i $FILE
+done
+
+clang-format --dry-run --Werror foo.cpp
