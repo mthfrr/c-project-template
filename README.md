@@ -5,6 +5,6 @@ A template for any C project
 - [X] Folder structure
 - [X] Makefile
 - [X] Criterion unit testing ready
-- [] gitignore
-- [] initialisation script
-- [] git hooks
+- [ ] gitignore
+- [ ] initialisation script
+- [ ] git hooks
