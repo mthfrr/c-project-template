@@ -5,13 +5,14 @@ LIBS   := -lm
 CC := gcc
 OBJDIR := obj
 SRC_DIR := src
+INC_DIR := include
 TEST_DIR := test
 DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)/$*.d
 
 SRCS := $(shell find $(SRC_DIR) -name *.c) # all .c file in src/**
 OBJS :=  $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
 OBJ_DIRS := $(addprefix $(OBJDIR)/,$(shell find $(SRC_DIR) -type d) $(shell find $(TEST_DIR) -type d))
-INC_FLAGS := $(addprefix -I,$(shell find $(SRC_DIR) -type d))
+INC_FLAGS := $(addprefix -I,$(shell find $(INC_DIR) -type d))
 DEPFILES := $(SRCS:%.c=$(OBJDIR)/%.d)
 
 # criterion vars
