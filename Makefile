@@ -46,11 +46,26 @@ release: build
 run: asan
 	@./$(TARGET)
 
+valgrind: debug
+	@valgrind --leak-check=full \
+		--show-leak-kinds=all \
+		--track-origins=yes \
+		--log-file=valgrind-out.txt \
+		./$(TARGET)
+
 test: CFLAGS += -g3 -DDEBUG -fsanitize=address -fsanitize=leak
 test: $(TEST_RUN_EXEC)
 
 test-run: test
 	@./$(TEST_RUN_EXEC)
+
+test-valgrind: CFLAGS += -g3 -DDEBUG
+test-valgrind: $(TEST_RUN_EXEC)
+	@valgrind --leak-check=full \
+         --show-leak-kinds=all \
+         --track-origins=yes \
+         --log-file=valgrind-out.txt \
+         ./$(TEST_RUN_EXEC)
 	
 $(TEST_RUN_EXEC): $(CRITERION_OBJ)
 	$(CC) $(CFLAGS) $(CRITERION_OBJ) -o run-tests $(LIBS) -lcriterion
