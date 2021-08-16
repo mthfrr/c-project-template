@@ -1,3 +1,6 @@
+#pragma once
+#include <stdio.h>
+
 #define DISP(arg)\
     do {char fmt[256];\
         char base[] = "%s:%d %s() " #arg " = ";\
@@ -17,3 +20,8 @@
             (sizeof(a) == sizeof(int)) ? /* is int sized ? */\
                 "%d":"%ld"\
 )
+
+#define UNUSED __attribute__((unused))
+#define u8 unsigned char
+
+#define ARR_LEN(arr) sizeof(arr)/sizeof(*arr)
