@@ -5,7 +5,7 @@ LIBS   := -lm
 CC := gcc
 OBJDIR := obj
 SRC_DIR := src
-INC_DIR := include
+INC_DIR := src
 TEST_DIR := test
 DEPFLAGS = -MT $@ -MMD -MP -MF $(OBJDIR)/$*.d
 
@@ -87,11 +87,3 @@ clean:
 
 $(DEPFILES):
 include $(wildcard $(DEPFILES))
-
-# ifeq (CRITERION, "0")
-# $(DEPFILES):
-# include $(wildcard $(DEPFILES))
-# else
-# $(CRITERION_DEPS):
-# include $(wildcard $(CRITERION_DEPS))
-# endif

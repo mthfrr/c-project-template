@@ -1,18 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 
 cmd="git diff -U0 --no-color | clang-format-diff -p1"
 # cmd="git clang-format --diff"
 
 # Execute the format command
 diff=$(eval "$cmd")
-if [[ $? -ne 0 ]]
+if [ $? -ne 0 ]
 then
     echo "Command failed to execute."
     exit 1
 fi
 
 # Print the outcome
-if [[ -z "$diff" ]]
+if [ -z "$diff" ]
 then
     echo "Everything is clean"
     exit 0

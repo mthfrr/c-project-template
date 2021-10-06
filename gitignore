@@ -3,8 +3,5 @@
 *.out
 *.d
 *~
-*.swp
 *.tmp
 out
-
-obj/
